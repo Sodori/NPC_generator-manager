@@ -48,6 +48,63 @@ def generate_user():
     return [f_name, l_name, age, m_skill, s_skill]
 
 
-setup_references()
+def ask(mode):
+    """
+    Ask the user for directions
+    """
 
-ROSTER.append_row(generate_user())
+    print("Please select your choise based on the numbers belov:")
+    if mode == 1:  # Simple yes/no question
+        answer = int(input("1. Yes\n2. No\n"))
+        if answer == 1:
+            return True
+        else:
+            return False
+    elif mode == 2:  # More advanced, nice question
+        answer = int(input("1. Observe characters\n2. Edit characters\n3. Create characters\n"))
+        if answer == 1:
+            for line in ROSTER.get_all_values():
+                print(line)
+            print("\n\n")
+            return
+        elif answer == 2:
+            print("Under construction")
+            print("\n\n")
+            return
+        elif answer == 3:
+            newUser = generate_user()
+            print(f"\nCreating {newUser[0]} {newUser[1]}")
+            ROSTER.append_row(generate_user())
+            print("\n\n")
+            return
+
+
+def MainMenu():
+    """
+    Main menue, user starts here
+    """
+
+    while 1:
+        numUsers = len(ROSTER.get_all_values()) - 1
+
+        print("Welcome, user!")
+        if numUsers <= 1:
+            print("User, our roster are empty.")
+            print("Would you like to generate new NPC's?\n")
+            if ask(1):
+                ROSTER.append_row(generate_user())
+            else:
+                print("What? This is the main purpose of this software.")
+                print("Go and boil your bottoms, you sons of a silly person.")
+                print("I fart in your general direction.")
+                print("Now good day and may your armhairs never be shaven.")
+                exit()
+        else:
+            print(f"User, there's currently {numUsers} users pre generated")
+            print("How would you like to proceed knowing this?\n")
+            ask(2)
+
+
+setup_references()
+MainMenu()
+# ROSTER.append_row(generate_user())
